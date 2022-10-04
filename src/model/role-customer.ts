@@ -1,6 +1,6 @@
 import {model, Schema} from 'mongoose';
 import {IRole} from "./role";
-import {IUser} from "./user";
+import { IUser } from './user';
 
 export interface IRoleUser {
     Role?: IRole;

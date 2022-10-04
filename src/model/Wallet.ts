@@ -1,23 +1,23 @@
 import {model, Schema} from 'mongoose';
 import {IUser} from "./user";
 
-export interface ICategory {
+export interface IWallet {
+    icon?: string;
+    money?:number;
     name?: string;
-    description?:string;
     status?:number;
-    User?:IUser;
+    User?:IUser
 }
-
-const categorySchema = new Schema<ICategory>({
+const walletSchema = new Schema<IWallet>({
+    icon: String,
+    money: Number,
     name: String,
-    description: String,
     status: Number,
     User:{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }
-
 })
 
-const Category = model<ICategory>('Category', categorySchema)
-export {Category}
+const Wallet = model<IWallet>('Wallet', walletSchema)
+export {Wallet}
