@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import {Category} from "../model/category"
-class CategoryController{
+import {Transaction} from "../model/transaction"
+class TransactionController{
     /**
      * 
      * @param req 
@@ -89,4 +89,4 @@ class CategoryController{
         }
     }
 }
-export default new CategoryController();
+export default new TransactionController();
