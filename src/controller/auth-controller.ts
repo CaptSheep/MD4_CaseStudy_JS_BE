@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Wallet } from "../model/Wallet"
+import {User} from "../model/user";
 
 class AuthController {
     /** 
@@ -8,8 +9,20 @@ class AuthController {
      * @param res 
      * @param next 
      */
-    login(req, res, next){
-        
+    async login(req, res, next){
+        try{
+            let userLogin = await User.findOne({email : req.body.email, password : req.body.password})
+            if(userLogin){
+                res.status(300).json(`User ${userLogin.username} login successfully`)
+            }
+            else {
+                res.status(404).json(`User not found . Login failed`)
+            }
+
+        }
+        catch (err){
+            next(err)
+        }
     }
     /**
      * 
