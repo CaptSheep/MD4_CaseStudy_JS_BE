@@ -6,8 +6,14 @@ export const router = Router();
 router.get("/", (req, res)=>{
     res.send("Hello");
 })
+router.get('/user/list',async (req,res)=>{
+    await userController.getAll(req,res)
+})
 router.post('/login',async (req,res,next)=>{
     await authController.login(req,res,next)
+})
+router.post('/register',async (req,res,next)=>{
+    await authController.register(req, res, next)
 })
 router.post('/user/create',async (req,res, next)=>{
     await userController.addUser(req,res,next)

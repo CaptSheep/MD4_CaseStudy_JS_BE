@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 // }));
 app.use('', router)
 app.use(express.static('public'))
-mongoose.connect('mongodb://localhost:8000/md4_db').then(() => {
+mongoose.connect('mongodb+srv://root:shmily@jackie.af6j8kn.mongodb.net/MD4_CaseStudy').then(() => {
     console.log('Connect success!');
 }).catch(() => {
     console.log('Connect error!');
