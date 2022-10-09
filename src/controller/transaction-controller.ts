@@ -1,5 +1,7 @@
 import {NextFunction, Request, Response} from "express";
 import {Transaction} from "../model/transaction"
+import {Category} from "../model/category";
+
 class TransactionController{
     /**
      * 
