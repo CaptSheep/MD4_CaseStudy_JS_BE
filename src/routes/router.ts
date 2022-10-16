@@ -13,11 +13,9 @@ router.post('/login',async (req,res,next)=>{
     await authController.login(req,res,next)
 })
 router.post('/register',async (req,res,next)=>{
-    await authController.register(req, res, next)
+    await userController.addUser(req, res, next)
 })
-router.post('/user/create',async (req,res, next)=>{
-    await userController.addUser(req,res,next)
-})
+
 router.delete('/user/delete/:id',async (req,res,next)=>{
     await userController.deleteUser(req,res,next)
 
