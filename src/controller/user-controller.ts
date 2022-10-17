@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { User } from "../model/user"
+import bcrypt from "bcrypt"
 
 class UserController {
     /**
@@ -20,10 +21,20 @@ class UserController {
 
     addUser = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            let user = req.body;
-            user = await User.create(user);
-            let newUser = await User.findById(user._id);
-            res.status(201).json(newUser);
+            req.body.password = await bcrypt.hash(req.body.password, 10)
+
+            let user = {
+                name : req.body.name,
+                avatar : req.body.avatar,
+                username : req.body.username,
+                password : req.body.password,
+                phone : req.body.phone,
+                email : req.body.email,
+                address : req.body.address
+            };
+            let newUser = await User.create(user)
+
+            return res.status(200).json(`User ${newUser.name} has been created`)
         } catch (error) {
             next(error);
         }
