@@ -6,9 +6,9 @@ class TransactionController{
      * @param req 
      * @param res 
      */
-     getAll = async (req: Request, res: Response) => {
-        let categories = await Category.find().populate("user", "name");
-        res.status(200).json(categories);
+    getAll = async (req: Request, res: Response) => {
+        let transactions = await Transaction.find();
+        res.status(200).json(transactions);
     }
     /**
      * 
@@ -17,12 +17,12 @@ class TransactionController{
      * @param next 
      */
 
-    addCategory = async (req: Request, res: Response, next: NextFunction) => {
+    addTransaction = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            let category = req.body;
-            category = await Category.create(category);
-            let newCategory = await Category.findById(category._id).populate("user", "name");
-            res.status(201).json(newCategory);
+            let transaction = req.body;
+            transaction = await Transaction.create(Transaction);
+            let newTransaction = await Transaction.findById(transaction._id);
+            res.status(201).json(newTransaction);
         } catch (error) {
             next(error);
         }
@@ -34,14 +34,14 @@ class TransactionController{
      * @param res 
      * @param next 
      */
-    deleteCategory = async (req: Request, res: Response, next: NextFunction) => {
+    deleteTransaction = async (req: Request, res: Response, next: NextFunction) => {
         let id = req.params.id;
         try {
-            let category = await Category.findById(id).populate("user", "name");
-            if (!category) {
+            let transaction = await Transaction.findById(id);
+            if (!transaction) {
                 res.status(404).json();
             } else {
-                category.delete();
+                transaction.delete();
                 res.status(204).json();
             }
         } catch (error) {
@@ -55,14 +55,14 @@ class TransactionController{
      * @param next 
      */
 
-    getCategory = async (req: Request, res: Response, next: NextFunction) => {
+    getTransaction = async (req: Request, res: Response, next: NextFunction) => {
         let id = req.params.id;
         try {
-            let category = await Category.findById(id).populate("user", "name");
-            if (!category) {
+            let transaction = await Transaction.findById(id);
+            if (!transaction) {
                 res.status(404).json();
             } else {
-                res.status(200).json(category);
+                res.status(200).json(transaction);
             }
         } catch (error) {
             next(error)
@@ -73,19 +73,19 @@ class TransactionController{
      * @param req 
      * @param res 
      */
-    updateCategory = async (req: Request, res: Response) => {
+    updateTransaction = async (req: Request, res: Response) => {
         let id = req.params.id;
-        let category = await Category.findById(id).populate("user", "name");
-        if (!category) {
+        let transaction = await Transaction.findById(id);
+        if (!transaction) {
             res.status(404).json();
         } else {
             let data = req.body;
-            await Category.findOneAndUpdate({
+            await Transaction.findOneAndUpdate({
                 _id: id
             }, data);
             data._id = id;
-            category = await Category.findById(id).populate("user", "name");
-            res.status(200).json(category);
+            transaction = await Transaction.findById(id);
+            res.status(200).json(transaction);
         }
     }
 }
